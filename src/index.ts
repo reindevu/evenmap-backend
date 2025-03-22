@@ -6,6 +6,7 @@ import multer from "multer";
 import cors from "cors";
 import mongoose from "mongoose";
 import jayson from "jayson";
+import { JsonRpcContext, jsonRpcMethods } from "@shared/jsonrpc";
 
 const app = express();
 

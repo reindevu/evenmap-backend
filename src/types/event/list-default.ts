@@ -1,13 +1,15 @@
 export interface EventListDefaultRequest {
-  southWestLngLat: number[];
-  northEastLngLat: number[];
+  sw: number[];
+  ne: number[];
+  date?: string;
+  typeMnemocode?: string;
 }
 
 export interface EventListDefaultResponse
   extends Array<{
     id: string;
     name: string;
-    type: string;
+    typeMnemocode: string;
     description: string;
     dateFrom: Date;
     dateTo: Date;
