@@ -2,19 +2,20 @@ import { array, date, number, object, ref, string } from "yup";
 
 export const schema = object().shape({
   name: string().required("Название обязательно"),
-  type: string().required("Тип обязателен"),
+  typeMnemocode: string().required("Тип обязателен"),
   description: string().required("Описание обязательно"),
 
-  dateTimeFrom: date()
+  dateFrom: string()
+    .default("")
     .required("Дата начала обязательна")
     .typeError("Неверный формат даты"),
 
-  dateTimeTo: date()
+  dateTo: string()
+    .default("")
     .required("Дата окончания обязательна")
-    .typeError("Неверный формат даты")
-    .min(ref("dateTimeFrom"), "Дата окончания должна быть после даты начала"),
+    .typeError("Неверный формат даты"),
 
-  coordinates: array()
+  lngLat: array()
     .of(number().required("Координата обязательна"))
     .length(2, "Должно быть две координаты: [долгота, широта]")
     .required("Координаты обязательны"),

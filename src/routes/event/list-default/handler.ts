@@ -18,12 +18,24 @@ export async function eventListDefault(
   try {
     await schema.validate(args);
 
+    const additionalFilter: Record<string, any> = {};
+
+    if(args.date) {
+      additionalFilter.dateFrom = { $lte: args.date };
+      additionalFilter.dateTo = { $gte: args.date };
+    }
+
+    if(args.typeMnemocode) {
+      additionalFilter.typeMnemocode = args.typeMnemocode;
+    }
+
     const eventDocs = await Event.find({
+      ...additionalFilter,
       location: {
         $geoWithin: {
           $box: [
-            [args.southWestLngLat[0], args.southWestLngLat[1]],
-            [args.northEastLngLat[0], args.southWestLngLat[1]],
+            [args.sw[0], args.sw[1]],
+            [args.ne[0], args.ne[1]],
           ],
         },
       },
@@ -33,7 +45,7 @@ export async function eventListDefault(
       callback,
       result: eventDocs.map(key => ({
         id: key.id,
-        type: key.type,
+        typeMnemocode: key.typeMnemocode,
         name: key.name,
         description: key.description,
         dateFrom: key.dateFrom,

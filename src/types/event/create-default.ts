@@ -1,10 +1,10 @@
 export interface EventCreateDefaultRequest {
   name: string;
-  type: string;
+  typeMnemocode: string;
   description: string;
-  dateFrom: Date;
-  dateTo: Date;
-  coordinates: number[];
+  dateFrom: string;
+  dateTo: string;
+  lngLat: [number, number]
 }
 
 export interface EventCreateDefaultResponse {

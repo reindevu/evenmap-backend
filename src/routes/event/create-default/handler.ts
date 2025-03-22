@@ -20,13 +20,13 @@ export async function eventCreateDefault(
 
     const eventCreateDoc = await Event.create({
       name: args.name,
-      type: args.type,
+      typeMnemocode: args.typeMnemocode,
       description: args.description,
-      dateFrom: args.dateFrom,
-      dateTo: args.dateTo,
+      dateFrom: new Date(args.dateFrom),
+      dateTo: new Date(args.dateTo),
       location: {
         type: "Point",
-        coordinates: args.coordinates,
+        coordinates: args.lngLat
       },
     });
 
@@ -37,6 +37,7 @@ export async function eventCreateDefault(
       },
     });
   } catch (e) {
+    console.log(e);
     jsonRpcError({
       callback,
       errorTypeMnemocode: JsonRpcErrorTypeMnemocode.UnknownError,

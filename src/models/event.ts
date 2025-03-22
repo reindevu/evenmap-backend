@@ -1,8 +1,9 @@
+import { EVENT_TYPE_MNEMOCODE_LIST } from "@shared/constants";
 import mongoose from "mongoose";
 
 interface EventDocument extends mongoose.Document {
   name: string;
-  type: string;
+  typeMnemocode: string;
   description: string;
   dateFrom: Date,
   dateTo: Date,
@@ -17,8 +18,9 @@ const schema = new mongoose.Schema<EventDocument>({
     type: String,
     required: true
   },
-  type: {
+  typeMnemocode: {
     type: String,
+    enum: EVENT_TYPE_MNEMOCODE_LIST,
     required: true
   },
   description: {
